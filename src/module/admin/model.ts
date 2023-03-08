@@ -16,7 +16,6 @@ const schema = new Schema(
       type: Schema.Types.String,
       required: true,
       trim: true,
-      unique: true,
     },
     phone: {
       type: Schema.Types.String,
@@ -26,7 +25,6 @@ const schema = new Schema(
     email: {
       type: Schema.Types.String,
       required: true,
-      unique: true,
       trim: true,
     },
     password: {

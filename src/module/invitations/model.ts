@@ -15,7 +15,6 @@ const schema = new Schema(
         email: {
             type: Schema.Types.String,
             required: true,
-            unique: true,
             trim: true,
         },
         userId: {

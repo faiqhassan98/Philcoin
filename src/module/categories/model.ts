@@ -13,7 +13,6 @@ const schema = new Schema(
       type: Schema.Types.String,
       required: true,
       trim: true,
-      unique: true,
     },
   },
   {
