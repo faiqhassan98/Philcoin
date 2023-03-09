@@ -4,7 +4,7 @@ import {
   successHandler,
   badRequestHandler,
 } from "../../utils";
-import { SendEmail } from "../../utils/sendEmail";
+// import { SendEmail } from "../../utils/sendEmail";
 import { sendEmail } from "../../utils/sendEmailGrid";
 import User from "../users/model";
 

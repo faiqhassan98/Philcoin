@@ -19,5 +19,5 @@ export const SendEmail = async (email: string) => {
     text: "That was easy!",
   };
   const data = await transporter.sendMail(mailOptions);
-//   console.log(data)
+  console.log(data)
 };
