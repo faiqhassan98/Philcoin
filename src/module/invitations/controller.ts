@@ -52,14 +52,14 @@ export const getInvitation = async (
     });
     console.log(userObj);
     console.log(invitationData);
-    if (!invitationData) {
-      badRequestHandler(res, "invitation not found");
-    } else {
+    if (invitationData.length > 1) {
       successHandler(
         res,
         { invitation: invitationData },
         "invitation fetched successfully!"
       );
+    } else {
+      badRequestHandler(res, "invitation not found");
     }
   } catch (err) {
     serverErrorHandler(res, err);
