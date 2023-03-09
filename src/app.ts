@@ -6,9 +6,9 @@ import * as path from "path";
 import bodyParser from "body-parser";
 import { authRoutes } from "./module/auth";
 import { invitationRoutes } from "./module/invitations";
-import { userRoutes } from "./module/users";
-import { adminRoutes } from "./module/admin";
-import { categoryRoutes } from "./module/categories";
+// import { userRoutes } from "./module/users";
+// import { adminRoutes } from "./module/admin";
+// import { categoryRoutes } from "./module/categories";
 
 const app: Application = express();
 
@@ -23,7 +23,7 @@ app.use(
     limit: "50mb",
     parameterLimit: 100000,
     extended: true,
-  })
+  }) 
 );
 middleware(app);
 app.use("/static", express.static(path.join(__dirname, "public")));
@@ -33,3 +33,4 @@ app.use("/api/v1", [authRoutes, invitationRoutes]);
 app.use(errorHandler);
 
 export default app;
+ 

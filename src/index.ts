@@ -17,5 +17,6 @@ db()
     });
   })
   .catch((err) => {
-    dbLogger.error("Connection error: " + err);
+    dbLogger.error("Connection error: " + err); 
   });
+ 

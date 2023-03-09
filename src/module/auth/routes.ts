@@ -5,12 +5,12 @@ import rules from "./rules";
 
 export const authRoutes = Router();
 authRoutes.post(
-  "/register/auth/",
+  "/auth/register",
   validator(rules.register, ValidationSource.BODY),
   AuthController.registerUser
 );
 authRoutes.post(
   "/auth/login",
-  validator(rules.login, ValidationSource.BODY), 
+  validator(rules.login, ValidationSource.BODY),  
   AuthController.userLogin
 );
