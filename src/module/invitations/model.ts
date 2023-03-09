@@ -6,7 +6,7 @@ import { DOCUMENT_NAME as USER_DOCUMENT } from "../users/model";
 export default interface Invitation extends Document {
   email: string;
   name: string;
-  status: string;
+  status: boolean;
   userId: string;
 }
 
@@ -18,7 +18,7 @@ const schema = new Schema({
   },
   userId: {
     type: Schema.Types.ObjectId,
-    required: true,
+    required: false,
     ref: USER_DOCUMENT,
   },
   name: {
@@ -27,10 +27,9 @@ const schema = new Schema({
     trim: true,
   },
   status: {
-    type: Schema.Types.String,
+    type: Schema.Types.Boolean,
     required: false,
-    trim: true,
-    enum: ["accepted", "declined"],
+    default: false,
   },
 });
 

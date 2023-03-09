@@ -8,6 +8,7 @@ import {
   createToken,
   generateRandomString,
 } from "../../utils";
+import { InvitationModel } from "../invitations/model";
 import { UserModel } from "./../users/model";
 
 export const registerUser = async (
@@ -16,7 +17,6 @@ export const registerUser = async (
 ): Promise<void> => {
   try {
     const userData = await UserModel.findOne({ email: req.body.email });
-    console.log(userData)
     if (userData) {
       usersLogger.info("User with this email already exist!");
       return badRequestHandler(res, "User with this email already exist!");
@@ -24,25 +24,25 @@ export const registerUser = async (
       if (req.query.ref) {
         const refData = await UserModel.findOne({ refCode: req.query.ref });
         if (refData) {
-          const user = new UserModel();
-          user.firstName = req.body.firstName;
-          user.lastName = req.body.lastName;
-          user.phone = req.body.phone;
-          user.email = req.body.email;
+          const user = new UserModel({ ...req.body });
           user.password = hashPassword(req.body.password, "10");
           user.refCode = generateRandomString(10);
           await user.save();
           const token = createToken(user._id.toString());
           refData.signupCount = refData.signupCount + 1;
           await refData.save();
+          const refEmail = await InvitationModel.findOne({
+            email: user.email,
+            userId: refData._id
+  
+          });
+          console.log(refEmail,"EMAIL")
+          refEmail ? (refEmail.status = true) : false;
+          refEmail?.save();
           usersLogger.info("User Created!");
           successHandler(res, { user: user, token: token }, "User Created!");
         } else {
-          const user = new UserModel();
-          user.firstName = req.body.firstName;
-          user.lastName = req.body.lastName;
-          user.phone = req.body.phone;
-          user.email = req.body.email;
+          const user = new UserModel({ ...req.body });
           user.password = hashPassword(req.body.password, "10");
           user.refCode = generateRandomString(10);
           await user.save();
@@ -51,11 +51,7 @@ export const registerUser = async (
           successHandler(res, { user: user, token: token }, "User Created!");
         }
       } else {
-        const user = new UserModel();
-        user.firstName = req.body.firstName;
-        user.lastName = req.body.lastName;
-        user.phone = req.body.phone;
-        user.email = req.body.email;
+        const user = new UserModel({ ...req.body });
         user.password = hashPassword(req.body.password, "10");
         user.refCode = generateRandomString(10);
         await user.save();
@@ -68,7 +64,6 @@ export const registerUser = async (
     usersLogger.error("Has Errors => " + err);
     serverErrorHandler(res, err);
   }
- 
 };
 
 export const userLogin = async (

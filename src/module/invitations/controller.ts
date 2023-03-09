@@ -15,6 +15,7 @@ export const createInvitation = async (
   res: express.Response
 ): Promise<void> => {
   try {
+    const userObj = req.user as User;
     const invitationData = await InvitationModel.findOne({
       email: req.body.email,
     });
@@ -24,8 +25,8 @@ export const createInvitation = async (
       const invitation = new InvitationModel();
       invitation.email = req.body.email;
       invitation.name = req.body.name;
-      invitation.status = req.body.status;
-      invitation.userId = req.body.userId;
+      // invitation.status = req.body.status;
+      invitation.userId = userObj._id;
       await invitation.save();
       // const data = await SendEmail(invitation.email);
       console.log("data1");
