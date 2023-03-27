@@ -7,6 +7,7 @@ export default interface User extends Document {
   firstName: string;
   lastName: string;
   phone: string;
+  role: string;
   email: string;
   password: string;
   refCode: string;
@@ -27,8 +28,8 @@ const schema = new Schema(
     },
     role: {
       type: Schema.Types.String,
-      default: 'User',
-      enum: ['User', 'Admin']
+      default: 'user',
+      enum: ['user', 'admin']
     },
     phone: {
       type: Schema.Types.String,
